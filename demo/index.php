@@ -5,7 +5,8 @@
 	$composer = json_decode(file_get_contents("./../composer.json"));
 
 	// remove anything after the question mark in example?variable
-	$request = preg_replace("/\?.*$/","",value($_SERVER,"REQUEST_URI"));
+	$request = trim(preg_replace("/\?.*$/","",value($_SERVER,"REQUEST_URI")),"/");
+	$request = $request ? $request : "index";
 	$view_file = "./views/".$request.".php";
 	$view = is_file($view_file);
 
@@ -37,7 +38,9 @@
 	  </a>
 	</nav>
 	<div class="content" style="padding: 25px">
-   		<?=$content?>
+   		<form method="post">
+   			<?=$content?>
+   		</form>
 	</div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -46,3 +49,4 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </body>
 </html>
+
